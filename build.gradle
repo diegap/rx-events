@@ -45,6 +45,7 @@ dependencies {
     compile 'io.reactivex.rxjava2:rxkotlin:2.3.0'
 
     compile 'org.slf4j:slf4j-api:1.7.2'
+    compile 'org.slf4j:slf4j-simple:1.7.2'
     compile 'ch.qos.logback:logback-core:1.1.8'
 
     compile 'com.fasterxml.jackson.core:jackson-core:2.8.8'
@@ -54,7 +55,7 @@ dependencies {
     compile 'com.fasterxml.jackson.datatype:jackson-datatype-joda:2.8.8'
     compile 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.8.8'
 
-    testCompile 'junit:junit:4.11'
+    testCompile 'junit:junit:4.12'
     testCompile 'org.assertj:assertj-core:3.6.1'
     testCompile 'io.mockk:mockk:1.7.7'
     testCompile 'org.mockito:mockito-all:1.9.5'
