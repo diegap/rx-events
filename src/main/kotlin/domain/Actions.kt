@@ -23,3 +23,26 @@ class SendEventsAsColdObservableUseCase(private val eventDataFetcher: EventDataF
             .toList()
 
 }
+
+class SendEventsAsHotObservableUseCase(private val eventDataFetcher: EventDataFetcher) {
+
+    private val logger = loggerFor<SendEventsAsColdObservableUseCase>()
+
+    fun execute(): List<EventAck> {
+
+        val receivedEvents = mutableListOf<EventAck>()
+        val hotObservable = eventDataFetcher.fetchData()
+                .toObservable().publish()
+
+        hotObservable.subscribe {
+            val ack = EventAck(event = it, date = LocalDateTime.now())
+            logger.debug("Event ackwnowledged at ${ack.date}")
+            receivedEvents.add(ack)
+        }
+
+        hotObservable.connect()
+
+        return receivedEvents
+    }
+
+}

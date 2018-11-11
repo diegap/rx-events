@@ -24,10 +24,14 @@ class UseCaseTest {
     fun `Send events as a hot observable`() {
 
         // given
+        val useCase = SendEventsAsHotObservableUseCase(FileDataFetcher("events.json"))
 
         // when
+        val eventsAck = useCase.execute()
 
         // then
+        assertThat(eventsAck).isNotEmpty
+        assertThat(eventsAck.size).isEqualTo(7)
 
     }
 
