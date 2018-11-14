@@ -1,19 +1,25 @@
 import domain.SendEventsAsColdObservableUseCase
+import domain.SendEventsAsHotObservableUseCase
 import infrastructure.dataprovider.FileDataFetcher
+import mu.KotlinLogging
 
 class App {
 
-    private val logger = loggerFor<App>()
+    companion object {
 
-    fun main(args: Array<String>) {
+        private val logger = KotlinLogging.logger {}
+        private const val INPUT_EVENTS = "events.json"
 
-        logger.info("Starting application ...")
+        @JvmStatic
+        fun main(args: Array<String>) {
 
-        val useCase = SendEventsAsColdObservableUseCase(FileDataFetcher("events.json"))
+            logger.info { "Starting application ..." }
 
-        useCase.execute()
+            SendEventsAsColdObservableUseCase(FileDataFetcher(INPUT_EVENTS)).execute()
+            SendEventsAsHotObservableUseCase(FileDataFetcher(INPUT_EVENTS)).execute()
 
-        logger.info("Ending application")
+            logger.info { "Ending application ..." }
+        }
 
     }
 

@@ -4,12 +4,12 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import domain.Event
 import domain.EventDataFetcher
-import loggerFor
+import mu.KotlinLogging
 
 class FileDataFetcher(private val inputFile: String) : EventDataFetcher {
 
     companion object {
-        private val logger = loggerFor<FileDataFetcher>()
+        private val logger = KotlinLogging.logger {}
     }
 
     private val objectMapper = jacksonObjectMapper()

@@ -1,7 +1,7 @@
 package domain
 
 import io.reactivex.rxkotlin.toObservable
-import loggerFor
+import mu.KotlinLogging
 import java.time.LocalDateTime
 
 interface EventDataFetcher {
@@ -10,7 +10,7 @@ interface EventDataFetcher {
 
 class SendEventsAsColdObservableUseCase(private val eventDataFetcher: EventDataFetcher) {
 
-    private val logger = loggerFor<SendEventsAsColdObservableUseCase>()
+    private val logger = KotlinLogging.logger {}
 
     fun execute() = eventDataFetcher.fetchData()
             .toObservable()
@@ -26,7 +26,7 @@ class SendEventsAsColdObservableUseCase(private val eventDataFetcher: EventDataF
 
 class SendEventsAsHotObservableUseCase(private val eventDataFetcher: EventDataFetcher) {
 
-    private val logger = loggerFor<SendEventsAsColdObservableUseCase>()
+    private val logger = KotlinLogging.logger {}
 
     fun execute(): List<EventAck> {
 
