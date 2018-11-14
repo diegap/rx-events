@@ -10,9 +10,8 @@ class FileDataFetcher(private val inputFile: String) : EventDataFetcher {
 
     companion object {
         private val logger = KotlinLogging.logger {}
+        private val objectMapper = jacksonObjectMapper()
     }
-
-    private val objectMapper = jacksonObjectMapper()
 
     override fun fetchData(): List<Event> = try {
         logger.debug("Retrieving data from $inputFile")
