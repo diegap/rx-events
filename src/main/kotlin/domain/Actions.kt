@@ -12,15 +12,16 @@ class SendEventsAsColdObservableUseCase(private val eventDataFetcher: EventDataF
 
     private val logger = KotlinLogging.logger {}
 
-    fun execute() = eventDataFetcher.fetchData()
-            .toObservable()
-            .map {
-                val ack = EventAck(event = it, date = LocalDateTime.now())
-                logger.debug("Event ackwnowledged at ${ack.date}")
-                ack
-            }.toList()
-            .blockingGet()
-            .toList()
+    fun execute() =
+            eventDataFetcher.fetchData()
+                    .toObservable()
+                    .map {
+                        val ack = EventAck(event = it, date = LocalDateTime.now())
+                        logger.debug("Event acknowledged at ${ack.date}")
+                        ack
+                    }.toList()
+                    .blockingGet()
+                    .toList()
 
 }
 
@@ -36,7 +37,7 @@ class SendEventsAsHotObservableUseCase(private val eventDataFetcher: EventDataFe
 
         hotObservable.subscribe {
             val ack = EventAck(event = it, date = LocalDateTime.now())
-            logger.debug("Event ackwnowledged at ${ack.date}")
+            logger.debug("Event acknowledged at ${ack.date}")
             receivedEvents.add(ack)
         }
 
